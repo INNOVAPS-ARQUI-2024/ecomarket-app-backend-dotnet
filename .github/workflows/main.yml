@@ -25,18 +25,18 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Build Docker Image
-        run: docker build -t ecomarket-servicio-resenias:prod .
+        run: docker build -t ecomarket-app-backend-dotnet:prod .
 
       - name: Save Docker Image to Tar File
-        run: docker save ecomarket-servicio-resenias:prod -o ecomarket-servicio-resenias-prod.tar
+        run: docker save ecomarket-app-backend-dotnet:prod -o ecomarket-app-backend-dotnet-prod.tar
 
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
       - name: Copy Docker Image to Production Server
         run: |
-          sshpass -p "${{ secrets.PROD_SERVER_PASSWORD }}" scp -P ${{ secrets.PROD_SERVER_PORT }} -o StrictHostKeyChecking=no ecomarket-servicio-resenias-prod.tar ${{ secrets.PROD_SERVER_USER }}@${{ secrets.PROD_SERVER_HOST }}:/tmp/ecomarket-servicio-resenias-prod.tar
+          sshpass -p "${{ secrets.PROD_SERVER_PASSWORD }}" scp -P ${{ secrets.PROD_SERVER_PORT }} -o StrictHostKeyChecking=no ecomarket-app-backend-dotnet-prod.tar ${{ secrets.PROD_SERVER_USER }}@${{ secrets.PROD_SERVER_HOST }}:/tmp/ecomarket-app-backend-dotnet-prod.tar
 
       - name: Run Deployment Script on Production Server
         run: |
-          sshpass -p "${{ secrets.PROD_SERVER_PASSWORD }}" ssh -p ${{ secrets.PROD_SERVER_PORT }} -o StrictHostKeyChecking=no ${{ secrets.PROD_SERVER_USER }}@${{ secrets.PROD_SERVER_HOST }} "/home/estudiante/scripts/deploy_docker_image-ecomarket-servicio-resenias-prod.sh"
+          sshpass -p "${{ secrets.PROD_SERVER_PASSWORD }}" ssh -p ${{ secrets.PROD_SERVER_PORT }} -o StrictHostKeyChecking=no ${{ secrets.PROD_SERVER_USER }}@${{ secrets.PROD_SERVER_HOST }} "/home/estudiante/scripts/deploy_docker_image-ecomarket-app-backend-dotnet-prod.sh"
