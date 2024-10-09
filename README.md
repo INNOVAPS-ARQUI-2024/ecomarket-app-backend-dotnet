@@ -1,3 +1,5 @@
+# ¡OJO! No subir nada a este repo en NINGUNA RAMA
+
 # 📚 EcoMarket BackEnd [.NET]
 
 ¡Bienvenido al **Backend de .NET de EcoMarket**! Este repositorio tiene como objetivo mostrar los repositorios que componen el Bakcend de este proyecto. 
