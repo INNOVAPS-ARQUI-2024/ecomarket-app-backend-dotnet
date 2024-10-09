@@ -25,18 +25,18 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Build Docker Image
-        run: docker build -t ecomarket-servicio-resenias:qa .
+        run: docker build -t ecomarket-app-backend-dotnet:qa .
 
       - name: Save Docker Image to Tar File
-        run: docker save ecomarket-servicio-resenias:qa -o ecomarket-servicio-resenias-qa.tar
+        run: docker save ecomarket-app-backend-dotnet:qa -o ecomarket-app-backend-dotnet-qa.tar
 
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
       - name: Copy Docker Image to QA Server
         run: |
-          sshpass -p "${{ secrets.QA_SERVER_PASSWORD }}" scp -P ${{ secrets.QA_SERVER_PORT }} -o StrictHostKeyChecking=no ecomarket-servicio-resenias-qa.tar ${{ secrets.QA_SERVER_USER }}@${{ secrets.QA_SERVER_HOST }}:/tmp/ecomarket-servicio-resenias-qa.tar
+          sshpass -p "${{ secrets.QA_SERVER_PASSWORD }}" scp -P ${{ secrets.QA_SERVER_PORT }} -o StrictHostKeyChecking=no ecomarket-app-backend-dotnet-qa.tar ${{ secrets.QA_SERVER_USER }}@${{ secrets.QA_SERVER_HOST }}:/tmp/ecomarket-app-backend-dotnet-qa.tar
 
       - name: Run Deployment Script on QA Server
         run: |
-          sshpass -p "${{ secrets.QA_SERVER_PASSWORD }}" ssh -p ${{ secrets.QA_SERVER_PORT }} -o StrictHostKeyChecking=no ${{ secrets.QA_SERVER_USER }}@${{ secrets.QA_SERVER_HOST }} "/home/estudiante/scripts/deploy_docker_image-ecomarket-servicio-resenias-qa.sh"
+          sshpass -p "${{ secrets.QA_SERVER_PASSWORD }}" ssh -p ${{ secrets.QA_SERVER_PORT }} -o StrictHostKeyChecking=no ${{ secrets.QA_SERVER_USER }}@${{ secrets.QA_SERVER_HOST }} "/home/estudiante/scripts/deploy_docker_image-ecomarket-app-backend-dotnet-qa.sh"
