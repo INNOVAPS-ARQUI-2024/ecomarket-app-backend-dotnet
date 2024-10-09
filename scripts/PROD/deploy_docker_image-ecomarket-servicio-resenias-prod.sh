@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Variables (puedes personalizarlas o recibirlas como parámetros)
-DOCKER_IMAGE_PATH="/tmp/ecomarket-servicio-resenias-qa.tar"
-DOCKER_IMAGE_NAME="ecomarket-servicio-resenias:qa"
-CONTAINER_NAME="ecomarket-servicio-resenias-qa"
+DOCKER_IMAGE_PATH="/tmp/ecomarket-servicio-resenias-prod.tar"
+DOCKER_IMAGE_NAME="ecomarket-servicio-resenias:prod"
+CONTAINER_NAME="ecomarket-servicio-resenias-prod"
 
 # Cargar la imagen Docker
 docker load -i $DOCKER_IMAGE_PATH
@@ -18,5 +18,5 @@ docker run -d --name $CONTAINER_NAME -p 8085:8080 $DOCKER_IMAGE_NAME
 # Opcional: eliminar el archivo .tar para ahorrar espacio
 rm $DOCKER_IMAGE_PATH
 
-echo "Deployment ecomarket-servicio-resenias-qa completed successfully!"
+echo "Deployment ecomarket-servicio-resenias-prod completed successfully!"
 
